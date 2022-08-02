@@ -14,11 +14,10 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     text-decoration: none;
-    color: black;
   }
 
   body {
-    margin: 0px 25px;
+    margin: 0px;
   }
 
   img {
