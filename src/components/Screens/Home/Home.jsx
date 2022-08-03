@@ -57,6 +57,10 @@ export const LoginWrapper = styled.div`
         flex-direction: column;
     }
 
+    a {
+        color: #52B6FF;
+    }
+
     img {
         margin-top: 80px;
         width: 180px;
@@ -68,8 +72,6 @@ export const LoginWrapper = styled.div`
 
         font-size: 17px;
         text-decoration-line: underline;
-
-        color: #52B6FF;
     }
 
     button {

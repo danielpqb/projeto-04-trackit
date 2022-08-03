@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Footer from '../../Common/Footer'
 import Header from '../../Common/Header'
@@ -9,6 +9,8 @@ export default function Habits() {
         e.preventDefault()
     }
 
+    const [showNewHabit, setShowNewHabit] = useState(false)
+
     return (
         <Wrapper>
 
@@ -16,42 +18,44 @@ export default function Habits() {
 
             <div className="title">
                 <div className='name'>Meus hábitos</div>
-                <div className='button'>+</div>
+                <div className='button' onClick={() => { setShowNewHabit(!showNewHabit) }}>+</div>
             </div>
 
-            <div className="new-habit">
-                <form action="" onSubmit={handleSubmit}>
-                    <div className='allForm'>
-                        <div className='new-habit-info'>
-                            <div className='input-habit'>
-                                <input
-                                    type="text"
-                                    placeholder="nome do hábito"
-                                    name="newHabit"
-                                    required
-                                // value={clientData.name}
-                                // onChange={(e) => { setClientData({ ...clientData, name: e.target.value }) }}
-                                />
-                            </div>
+            {showNewHabit &&
+                <div className="new-habit">
+                    <form action="" onSubmit={handleSubmit}>
+                        <div className='allForm'>
+                            <div className='new-habit-info'>
+                                <div className='input-habit'>
+                                    <input
+                                        type="text"
+                                        placeholder="nome do hábito"
+                                        name="newHabit"
+                                        required
+                                    // value={clientData.name}
+                                    // onChange={(e) => { setClientData({ ...clientData, name: e.target.value }) }}
+                                    />
+                                </div>
 
-                            <HabitDays />
+                                <HabitDays />
 
-                        </div>
-                        <div className='buttons'>
-                            <div>
-                                <button className='cancel'>
-                                    Cancelar
-                                </button>
                             </div>
-                            <div>
-                                <button type="submit" className='save'>
-                                    Salvar
-                                </button>
+                            <div className='buttons'>
+                                <div>
+                                    <button className='cancel'>
+                                        Cancelar
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="submit" className='save'>
+                                        Salvar
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            }
 
             <div className="no-habit-message">
                 Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
