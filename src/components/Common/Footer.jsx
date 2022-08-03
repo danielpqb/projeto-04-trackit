@@ -5,17 +5,17 @@ import { Link } from 'react-router-dom'
 export default function Footer() {
     return (
         <Wrapper>
-            <div className="habits">
+            <div>
                 <Link to={`/habitos`}>
                     Hábitos
                 </Link>
             </div>
-            <div className="today">
+            <Today>
                 <Link to={`/hoje`}>
                     Hoje
                 </Link>
-            </div>
-            <div className="history">
+            </Today>
+            <div>
                 <Link to={`/historico`}>
                     Histórico
                 </Link>
@@ -36,15 +36,14 @@ const Wrapper = styled.div`
     }
     
     & a {
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
         font-size: 18px;
 
         color: #52B6FF;
     }
+`
 
-    & .today a {
+const Today = styled.div`
+    a {
         background: #52B6FF;
         color: #FFFFFF;
 

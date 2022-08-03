@@ -27,13 +27,13 @@ export default function HabitDays() {
         <Wrapper>
             {habitDays.map((day, index) => {
                 return (
-                    <div
+                    <Weekday
                         key={index}
                         onClick={() => { toggleHabitDay(day.id) }}
-                        className={day.selected ? 'selected' : ''}
+                        day={day}
                     >
                         {day.name}
-                    </div>
+                    </Weekday>
                 )
             })}
         </Wrapper>
@@ -45,28 +45,22 @@ const Wrapper = styled.div`
         justify-content: flex-start;
         height: 35px;
     }
+`
 
-    div {
+const Weekday = styled.div`
+    & {
         width: 30px;
         height: 30px;
 
         margin-right: 3px;
         margin-top: 5px;
 
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
         font-size: 20px;
 
-        background: #FFFFFF;
         border: 1px solid #D5D5D5;
         border-radius: 5px;
-
-        color: #DBDBDB;
-    }
-
-    .selected {
-        background-color: #CFCFCF;
-        color: #FFFFFF;
+        
+        background: ${({ day }) => (day.selected ? '#CFCFCF' : '#FFFFFF')};
+        color: ${({ day }) => (day.selected ? '#FFFFFF' : '#DBDBDB')};
     }
 `

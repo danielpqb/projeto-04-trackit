@@ -1,6 +1,16 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`  
+  * {
+    vertical-align: middle;
+    box-sizing: border-box;
+
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+  }
+
   div {
     display: flex;
     justify-content: center;
@@ -9,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
 
-    box-sizing: border-box;
+    object-fit: contain;
   }
 
   a {

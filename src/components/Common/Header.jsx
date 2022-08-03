@@ -6,12 +6,12 @@ import profilePhoto from '../../assets/img/SpongeBob.svg'
 export default function Header() {
     return (
         <Wrapper>
-            <div className="logo">
+            <Logo>
                 <img src={logo} alt="" />
-            </div>
-            <div className="profilePhoto">
+            </Logo>
+            <ProfilePhoto>
                 <img src={profilePhoto} alt="" />
-            </div>
+            </ProfilePhoto>
         </Wrapper>
     )
 };
@@ -22,29 +22,33 @@ const Wrapper = styled.div`
         top: 0;
         left: 0;
 
+        padding: 0px 20px;
+
         background: #126BA5;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
         height: 70px;
     }
+`
 
-    .logo {
+const Logo = styled.div`
+    & {
         justify-content: flex-start;
-        margin-left: 20px;
     }
 
-    .logo img {
+    img {
         width: 100px;
         height: 50px;
     }
+`
 
-    .profilePhoto {
+const ProfilePhoto = styled.div`
+    & {
         justify-content: flex-end;
-        margin-right: 20px;
         border-radius: 50%;
     }
 
-    .profilePhoto img {
+    img {
         width: 50px;
         height: 50px;
     }
