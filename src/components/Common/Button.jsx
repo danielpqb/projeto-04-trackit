@@ -13,11 +13,10 @@ const Wrapper = styled.button`
     & {
         width: 100px;
         height: 35px;
-        color: ${({ color }) => ((color === 'blue') ? '#52B6FF' : '#FFFFFF')};
-        background: ${({ color }) => (!(color === 'blue') ? '#52B6FF' : '#FFFFFF')};
+        color: ${({ color }) => (!(color === 'blue') ? '#52B6FF' : '#FFFFFF')};
+        background: ${({ color }) => ((color === 'blue') ? '#52B6FF' : '#FFFFFF')};
 
         border-radius: 5px;
-        border: none;
 
         font-size: 16px;
 

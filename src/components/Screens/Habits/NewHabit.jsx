@@ -27,8 +27,8 @@ export default function NewHabit() {
                     </Data>
 
                     <Buttons>
-                        <Button color='blue'>Cancelar</Button>
-                        <Button type="submit">Salvar</Button>
+                        <Button>Cancelar</Button>
+                        <Button color='blue' type="submit">Salvar</Button>
                     </Buttons>
                 </FormWrapper>
             </form>

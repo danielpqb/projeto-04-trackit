@@ -2,6 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`  
   * {
+    background: none;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+
     vertical-align: middle;
     box-sizing: border-box;
 
@@ -22,13 +27,21 @@ export const GlobalStyle = createGlobalStyle`
     object-fit: contain;
   }
 
+  input {
+    border: 1px solid #D5D5D5;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+  }
+
+  button {
+    width: 100%;
+    height: 100%;
+  }
+
   a {
     text-decoration: none;
     color: black;
-  }
-
-  body {
-    margin: 0px;
   }
 
   img {
