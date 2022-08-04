@@ -1,16 +1,57 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import image from '../../../assets/img/TrackItImage.svg'
+import UserContext from '../../../Context/UserContext'
+import { postLoginUser, postRegisterUser } from '../../../services/trackitAPI'
 
 import Button from '../../Common/Button'
 import LoginInputs from './LoginInputs'
 import RegisterInputs from './RegisterInputs'
 
 export default function Home({ isLogin }) {
+    const navigate = useNavigate()
+
+    const { setUserData } = useContext(UserContext)
+
     function handleSubmit(e) {
         e.preventDefault()
+
+        if (e.nativeEvent.submitter.id === 'login') {
+            const promise = postLoginUser(loginData)
+            promise.then((res) => {
+                setUserData(res.data)
+                console.log(res.data)
+                navigate('/habitos')
+            })
+            promise.catch((res) => {
+                alert('ERRO!')
+                console.log(res)
+            })
+        }
+        else if (e.nativeEvent.submitter.id === 'register') {
+            const promise = postRegisterUser(registerData)
+            promise.then(() => {
+                alert('Usuário registrado!')
+                navigate('/')
+            })
+            promise.catch((res) => {
+                alert('ERRO!')
+                console.log(res)
+            })
+        }
     }
+
+    const [registerData, setRegisterData] = useState({
+        email: '',
+        name: '',
+        image: '',
+        password: ''
+    })
+    const [loginData, setLoginData] = useState({
+        email: '',
+        password: ''
+    })
 
     return (
         <Wrapper>
@@ -20,15 +61,15 @@ export default function Home({ isLogin }) {
             <FormWrapper action="" onSubmit={handleSubmit}>
                 {isLogin ?
                     <>
-                        <LoginInputs />
-                        <Button color='blue' type="submit">
+                        <LoginInputs loginData={loginData} setLoginData={setLoginData} />
+                        <Button id='login' color='blue' type="submit">
                             Entrar
                         </Button>
                     </>
                     :
                     <>
-                        <RegisterInputs />
-                        <Button color='blue' type="submit">
+                        <RegisterInputs registerData={registerData} setRegisterData={setRegisterData} />
+                        <Button id='register' color='blue' type="submit">
                             Cadastrar
                         </Button>
                     </>

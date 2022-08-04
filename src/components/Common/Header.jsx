@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import logo from '../../assets/img/TrackIt.svg'
-import profilePhoto from '../../assets/img/SpongeBob.svg'
+import UserContext from '../../Context/UserContext'
 
 export default function Header() {
+
+    const { userData } = useContext(UserContext)
+
     return (
         <Wrapper>
             <Logo>
                 <img src={logo} alt="" />
             </Logo>
             <ProfilePhoto>
-                <img src={profilePhoto} alt="" />
+                <img src={userData.image} alt="" />
             </ProfilePhoto>
         </Wrapper>
     )
@@ -45,11 +48,11 @@ const Logo = styled.div`
 const ProfilePhoto = styled.div`
     & {
         justify-content: flex-end;
-        border-radius: 50%;
     }
 
     img {
         width: 50px;
         height: 50px;
+        border-radius: 50%;
     }
 `
