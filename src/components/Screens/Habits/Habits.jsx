@@ -13,7 +13,7 @@ import HabitDays from './HabitDays'
 
 export default function Habits() {
 
-    const { userData } = useContext(UserContext)
+    const { userData, refresh } = useContext(UserContext)
 
     const [showNewHabit, setShowNewHabit] = useState(false)
 
@@ -23,7 +23,7 @@ export default function Habits() {
 
     useEffect(() => {
         refreshUserHabits()
-    }, [])
+    }, [refresh])
 
     function refreshUserHabits() {
         const promise = getHabits(userData.token)

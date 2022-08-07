@@ -10,11 +10,9 @@ import TodayTask from './TodayTask'
 
 export default function Today() {
 
-    const { userData } = useContext(UserContext)
+    const { userData, refresh } = useContext(UserContext)
 
     const [userTodayHabits, setUserTodayHabits] = useState([])
-
-    const [refresh, setRefresh] = useState(false)
 
     console.log('Today:', userTodayHabits)
 
@@ -38,7 +36,7 @@ export default function Today() {
 
             {userTodayHabits.map((element, index) => {
                 return (
-                    <TodayTask key={index} userTodayHabits={userTodayHabits} todayHabitData={element} refresh={refresh} setRefresh={setRefresh} />
+                    <TodayTask key={index} userTodayHabits={userTodayHabits} todayHabitData={element} />
                 )
             })
 

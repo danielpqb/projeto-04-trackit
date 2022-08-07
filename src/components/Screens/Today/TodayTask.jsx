@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import UserContext from '../../../Context/UserContext'
 import { postCheckHabitAsDone, postUncheckHabitAsDone } from '../../../services/trackitAPI'
 
-export default function TodayTask({ todayHabitData, refresh, setRefresh }) {
+export default function TodayTask({ todayHabitData }) {
 
-    const { userData } = useContext(UserContext)
+    const { userData, refresh, setRefresh } = useContext(UserContext)
 
     console.log('TodayTask:', todayHabitData)
 

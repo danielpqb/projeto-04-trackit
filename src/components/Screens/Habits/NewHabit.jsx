@@ -16,7 +16,7 @@ export default function NewHabit({ setUserHabits, setShowNewHabit }) {
         e.preventDefault()
 
         const promise = postNewHabit(newHabitData, userData.token)
-        promise.then((res) => {
+        promise.then(() => {
             const promise = getHabits(userData.token)
             promise.then((res) => {
                 setUserHabits(res.data)
