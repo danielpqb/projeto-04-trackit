@@ -39,6 +39,8 @@ const Wrapper = styled.div`
         background: #F2F2F2;
 
         font-size: 23px;
+
+        color: #666666;
     }
 `
 
