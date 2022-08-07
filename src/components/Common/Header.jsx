@@ -31,6 +31,8 @@ const Wrapper = styled.div`
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 
         height: 70px;
+
+        z-index: 1;
     }
 `
 

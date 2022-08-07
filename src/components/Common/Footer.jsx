@@ -33,6 +33,8 @@ const Wrapper = styled.div`
         height: 70px;
 
         background: #FFFFFF;
+
+        z-index: 1;
     }
     
     & a {

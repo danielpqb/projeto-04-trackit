@@ -1,17 +1,50 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
+import UserContext from '../../../Context/UserContext'
+import { getHabits, postNewHabit } from '../../../services/trackitAPI'
 
 import Button from '../../Common/Button'
 import HabitDays from './HabitDays'
 
-export default function NewHabit() {
+export default function NewHabit({ setUserHabits, showNewHabit, setShowNewHabit }) {
+
+    const { userData } = useContext(UserContext)
+
+    const [newHabitData, setNewHabitData] = useState({ name: '', days: [] })
+
     function handleSubmit(e) {
         e.preventDefault()
+
+        const promise = postNewHabit(newHabitData, userData.token)
+        promise.then((res) => {
+            console.log(res.data)
+
+            const promise = getHabits(userData.token)
+            promise.then((res) => {
+                setUserHabits(res.data)
+                console.log(res.data)
+            })
+            promise.catch((res) => {
+                alert('ERRO!')
+                console.log(res)
+            })
+        })
+        promise.catch((res) => {
+            alert('ERRO!')
+            console.log(res)
+        })
+
     }
 
     return (
         <Wrapper>
-            <form action="" onSubmit={handleSubmit}>
+            <form
+                action=""
+                onSubmit={(e) => {
+                    handleSubmit(e)
+                    setShowNewHabit(!showNewHabit)
+                }}
+            >
                 <FormWrapper>
                     <Data>
                         <input
@@ -19,11 +52,11 @@ export default function NewHabit() {
                             placeholder="nome do hábito"
                             name="newHabit"
                             required
-                        // value={clientData.name}
-                        // onChange={(e) => { setClientData({ ...clientData, name: e.target.value }) }}
+                            value={newHabitData.name}
+                            onChange={(e) => { setNewHabitData({ ...newHabitData, name: e.target.value }) }}
                         />
 
-                        <HabitDays />
+                        <HabitDays newHabitData={newHabitData} setNewHabitData={setNewHabitData} />
                     </Data>
 
                     <Buttons>

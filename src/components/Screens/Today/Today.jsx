@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import UserContext from '../../../Context/UserContext'
+import { getTodayHabits } from '../../../services/trackitAPI'
 
 import Footer from '../../Common/Footer'
 import Header from '../../Common/Header'
@@ -8,6 +10,24 @@ import TodayTask from './TodayTask'
 
 export default function Today() {
 
+    const { userData } = useContext(UserContext)
+
+    const [userTodayHabits, setUserTodayHabits] = useState([])
+
+    console.log('userTodayHabits:', userTodayHabits)
+
+    useEffect(() => {
+        const promise = getTodayHabits(userData.token)
+        promise.then((res) => {
+            setUserTodayHabits(res.data)
+            console.log(res.data)
+        })
+        promise.catch((res) => {
+            alert('ERRO!')
+            console.log(res)
+        })
+    }, [])
+
     return (
         <Wrapper>
 
@@ -15,7 +35,13 @@ export default function Today() {
 
             <Title screenId='today' />
 
-            <TodayTask />
+            {userTodayHabits.map((element, index) => {
+                return (
+                    <TodayTask key={index} userTodayHabits={userTodayHabits} todayHabitData={element} />
+                )
+            })
+
+            }
 
             <Footer />
 

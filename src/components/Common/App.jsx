@@ -11,6 +11,8 @@ import History from '../Screens/History/History'
 export default function App() {
     const [userData, setUserData] = useState({})
 
+    console.log(userData)
+
     return (
         <>
             <BrowserRouter>

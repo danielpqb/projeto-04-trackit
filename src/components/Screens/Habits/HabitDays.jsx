@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-export default function HabitDays() {
+export default function HabitDays({ selectedDays = [], newHabitData, setNewHabitData }) {
 
     function toggleHabitDay(id) {
         for (const day of habitDays) {
@@ -11,16 +11,20 @@ export default function HabitDays() {
         }
 
         setHabitDays([...habitDays])
+
+        const selecteds = habitDays.filter((element) => { return element.selected === true }).map((element) => { return element.id })
+        setNewHabitData({ ...newHabitData, days: selecteds })
+
     }
 
     const [habitDays, setHabitDays] = useState([
-        { id: 1, name: 'D', selected: false },
-        { id: 2, name: 'S', selected: false },
-        { id: 3, name: 'T', selected: false },
-        { id: 4, name: 'Q', selected: false },
-        { id: 5, name: 'Q', selected: false },
-        { id: 6, name: 'S', selected: false },
-        { id: 7, name: 'S', selected: false },
+        { id: 1, name: 'D', selected: (selectedDays.indexOf(1) === -1) ? false : true },
+        { id: 2, name: 'S', selected: (selectedDays.indexOf(2) === -1) ? false : true },
+        { id: 3, name: 'T', selected: (selectedDays.indexOf(3) === -1) ? false : true },
+        { id: 4, name: 'Q', selected: (selectedDays.indexOf(4) === -1) ? false : true },
+        { id: 5, name: 'Q', selected: (selectedDays.indexOf(5) === -1) ? false : true },
+        { id: 6, name: 'S', selected: (selectedDays.indexOf(6) === -1) ? false : true },
+        { id: 7, name: 'S', selected: (selectedDays.indexOf(7) === -1) ? false : true },
     ])
 
     return (
@@ -29,14 +33,18 @@ export default function HabitDays() {
                 return (
                     <Weekday
                         key={index}
-                        onClick={() => { toggleHabitDay(day.id) }}
+                        onClick={() => {
+                            if (newHabitData !== undefined) {
+                                toggleHabitDay(day.id)
+                            }
+                        }}
                         day={day}
                     >
                         {day.name}
                     </Weekday>
                 )
             })}
-        </Wrapper>
+        </Wrapper >
     )
 }
 

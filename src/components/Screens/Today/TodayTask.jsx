@@ -1,18 +1,38 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import UserContext from '../../../Context/UserContext'
+import { postCheckHabitAsDone, postUncheckHabitAsDone } from '../../../services/trackitAPI'
 
-export default function TodayTask() {
+export default function TodayTask({ todayHabitData }) {
+
+    const { userData } = useContext(UserContext)
+
+    console.log('todayHabitData:', todayHabitData)
+
+    function toggleCheck() {
+        if (todayHabitData.done) {
+            postUncheckHabitAsDone(todayHabitData.id, userData.token)
+        }
+        else {
+            postCheckHabitAsDone(todayHabitData.id, userData.token)
+        }
+    }
 
     return (
-        <Wrapper>
+        <Wrapper id={todayHabitData.id}>
 
             <Text>
-                <h1>{'Test'}</h1>
-                <h2>{`Sequência atual: ${''}`}</h2>
-                <h2>{`Seu recorde: ${''}`}</h2>
+                <h1>{todayHabitData.name}</h1>
+                <h2>{`Sequência atual: ${todayHabitData.currentSequence}`}</h2>
+                <h2>{`Seu recorde: ${todayHabitData.highestSequence}`}</h2>
             </Text>
 
-            <Button>
+            <Button
+                isDone={todayHabitData.done}
+                onClick={() => {
+                    toggleCheck()
+                }}
+            >
 
             </Button>
 
@@ -27,6 +47,7 @@ const Wrapper = styled.div`
         border-radius: 5px;
 
         padding: 15px;
+        margin-top: 10px;
     }
 `
 
@@ -54,7 +75,7 @@ const Button = styled.div`
         height: 70px;
         min-width: 70px;
         max-width: 70px;
-        background: #8FC549;
+        background: ${({ isDone }) => isDone ? '#8FC549' : '#EBEBEB'};
         border-radius: 5px;
     }
 `
