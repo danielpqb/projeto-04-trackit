@@ -11,7 +11,7 @@ import History from '../Screens/History/History'
 export default function App() {
     const [userData, setUserData] = useState({})
 
-    console.log(userData)
+    console.log('userData: ', userData)
 
     return (
         <>

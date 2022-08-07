@@ -21,7 +21,6 @@ export default function Home({ isLogin }) {
             const promise = postLoginUser(loginData)
             promise.then((res) => {
                 setUserData(res.data)
-                console.log(res.data)
                 navigate('/habitos')
             })
             promise.catch((res) => {

@@ -3,18 +3,18 @@ import styled from 'styled-components'
 import UserContext from '../../../Context/UserContext'
 import { postCheckHabitAsDone, postUncheckHabitAsDone } from '../../../services/trackitAPI'
 
-export default function TodayTask({ todayHabitData }) {
+export default function TodayTask({ todayHabitData, refresh, setRefresh }) {
 
     const { userData } = useContext(UserContext)
 
-    console.log('todayHabitData:', todayHabitData)
+    console.log('TodayTask:', todayHabitData)
 
     function toggleCheck() {
         if (todayHabitData.done) {
-            postUncheckHabitAsDone(todayHabitData.id, userData.token)
+            postUncheckHabitAsDone(todayHabitData.id, userData.token).then(() => { setRefresh(!refresh) })
         }
         else {
-            postCheckHabitAsDone(todayHabitData.id, userData.token)
+            postCheckHabitAsDone(todayHabitData.id, userData.token).then(() => { setRefresh(!refresh) })
         }
     }
 

@@ -6,7 +6,7 @@ import { getHabits, postNewHabit } from '../../../services/trackitAPI'
 import Button from '../../Common/Button'
 import HabitDays from './HabitDays'
 
-export default function NewHabit({ setUserHabits, showNewHabit, setShowNewHabit }) {
+export default function NewHabit({ setUserHabits, setShowNewHabit }) {
 
     const { userData } = useContext(UserContext)
 
@@ -17,12 +17,9 @@ export default function NewHabit({ setUserHabits, showNewHabit, setShowNewHabit 
 
         const promise = postNewHabit(newHabitData, userData.token)
         promise.then((res) => {
-            console.log(res.data)
-
             const promise = getHabits(userData.token)
             promise.then((res) => {
                 setUserHabits(res.data)
-                console.log(res.data)
             })
             promise.catch((res) => {
                 alert('ERRO!')
@@ -42,7 +39,7 @@ export default function NewHabit({ setUserHabits, showNewHabit, setShowNewHabit 
                 action=""
                 onSubmit={(e) => {
                     handleSubmit(e)
-                    setShowNewHabit(!showNewHabit)
+                    setShowNewHabit(false)
                 }}
             >
                 <FormWrapper>

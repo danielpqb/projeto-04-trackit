@@ -19,7 +19,7 @@ export default function Habits() {
 
     const [userHabits, setUserHabits] = useState([])
 
-    console.log(userHabits)
+    console.log('Habits: ', userHabits)
 
     useEffect(() => {
         refreshUserHabits()
@@ -29,7 +29,6 @@ export default function Habits() {
         const promise = getHabits(userData.token)
         promise.then((res) => {
             setUserHabits(res.data)
-            console.log(res.data)
         })
         promise.catch((res) => {
             alert('ERRO!')
@@ -44,7 +43,7 @@ export default function Habits() {
 
             <Title showNewHabit={showNewHabit} setShowNewHabit={setShowNewHabit} />
 
-            {showNewHabit && <NewHabit userHabits={userHabits} setUserHabits={setUserHabits} showNewHabit={showNewHabit} setShowNewHabit={setShowNewHabit} />}
+            {showNewHabit && <NewHabit setUserHabits={setUserHabits} setShowNewHabit={setShowNewHabit} />}
 
             {userHabits.map((element, index) => {
                 return (
@@ -55,10 +54,7 @@ export default function Habits() {
                             src={trashCan}
                             alt=""
                             onClick={(e) => {
-                                console.log(e)
-                                deleteHabit(element.id, userData.token)
-
-                                refreshUserHabits()
+                                deleteHabit(element.id, userData.token).then(() => { refreshUserHabits() })
                             }}
                         />
                     </Habit>

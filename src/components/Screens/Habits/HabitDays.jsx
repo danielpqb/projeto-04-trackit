@@ -18,13 +18,13 @@ export default function HabitDays({ selectedDays = [], newHabitData, setNewHabit
     }
 
     const [habitDays, setHabitDays] = useState([
-        { id: 1, name: 'D', selected: (selectedDays.indexOf(1) === -1) ? false : true },
-        { id: 2, name: 'S', selected: (selectedDays.indexOf(2) === -1) ? false : true },
-        { id: 3, name: 'T', selected: (selectedDays.indexOf(3) === -1) ? false : true },
+        { id: 0, name: 'D', selected: (selectedDays.indexOf(0) === -1) ? false : true },
+        { id: 1, name: 'S', selected: (selectedDays.indexOf(1) === -1) ? false : true },
+        { id: 2, name: 'T', selected: (selectedDays.indexOf(2) === -1) ? false : true },
+        { id: 3, name: 'Q', selected: (selectedDays.indexOf(3) === -1) ? false : true },
         { id: 4, name: 'Q', selected: (selectedDays.indexOf(4) === -1) ? false : true },
-        { id: 5, name: 'Q', selected: (selectedDays.indexOf(5) === -1) ? false : true },
+        { id: 5, name: 'S', selected: (selectedDays.indexOf(5) === -1) ? false : true },
         { id: 6, name: 'S', selected: (selectedDays.indexOf(6) === -1) ? false : true },
-        { id: 7, name: 'S', selected: (selectedDays.indexOf(7) === -1) ? false : true },
     ])
 
     return (

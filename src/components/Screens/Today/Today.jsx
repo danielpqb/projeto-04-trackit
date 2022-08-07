@@ -14,19 +14,20 @@ export default function Today() {
 
     const [userTodayHabits, setUserTodayHabits] = useState([])
 
-    console.log('userTodayHabits:', userTodayHabits)
+    const [refresh, setRefresh] = useState(false)
+
+    console.log('Today:', userTodayHabits)
 
     useEffect(() => {
         const promise = getTodayHabits(userData.token)
         promise.then((res) => {
             setUserTodayHabits(res.data)
-            console.log(res.data)
         })
         promise.catch((res) => {
             alert('ERRO!')
             console.log(res)
         })
-    }, [])
+    }, [refresh])
 
     return (
         <Wrapper>
@@ -37,7 +38,7 @@ export default function Today() {
 
             {userTodayHabits.map((element, index) => {
                 return (
-                    <TodayTask key={index} userTodayHabits={userTodayHabits} todayHabitData={element} />
+                    <TodayTask key={index} userTodayHabits={userTodayHabits} todayHabitData={element} refresh={refresh} setRefresh={setRefresh} />
                 )
             })
 
