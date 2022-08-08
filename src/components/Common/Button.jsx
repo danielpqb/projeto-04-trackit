@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from "styled-components"
 
-export default function Button({ id, color, children }) {
+export default function Button({ id, color, children, disabled }) {
     return (
-        <Wrapper id={id} color={color}>
+        <Wrapper id={id} color={color} disabled={disabled}>
             {children}
         </Wrapper>
     )

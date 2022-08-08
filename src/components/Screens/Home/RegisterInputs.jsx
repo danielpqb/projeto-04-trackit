@@ -1,10 +1,11 @@
 import React from 'react'
 
-export default function RegisterInputs({ registerData, setRegisterData }) {
+export default function RegisterInputs({ registerData, setRegisterData, disabled }) {
 
     return (
         <>
             <input
+                disabled={disabled}
                 type="email"
                 placeholder="email"
                 name="email"
@@ -13,6 +14,7 @@ export default function RegisterInputs({ registerData, setRegisterData }) {
                 onChange={(e) => { setRegisterData({ ...registerData, email: e.target.value }) }}
             />
             <input
+                disabled={disabled}
                 type="password"
                 placeholder="senha"
                 name="password"
@@ -21,6 +23,7 @@ export default function RegisterInputs({ registerData, setRegisterData }) {
                 onChange={(e) => { setRegisterData({ ...registerData, password: e.target.value }) }}
             />
             <input
+                disabled={disabled}
                 type="text"
                 placeholder="nome"
                 name="name"
@@ -29,6 +32,7 @@ export default function RegisterInputs({ registerData, setRegisterData }) {
                 onChange={(e) => { setRegisterData({ ...registerData, name: e.target.value }) }}
             />
             <input
+                disabled={disabled}
                 type="text"
                 placeholder="foto"
                 name="photo"

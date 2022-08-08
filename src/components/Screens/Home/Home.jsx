@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import image from '../../../assets/img/TrackItImage.svg'
@@ -14,29 +15,38 @@ export default function Home({ isLogin }) {
 
     const { setUserData } = useContext(UserContext)
 
+    const [disabled, setDisabled] = useState(false)
+
     function handleSubmit(e) {
         e.preventDefault()
 
-        if (e.nativeEvent.submitter.id === 'login') {
-            const promise = postLoginUser(loginData)
-            promise.then((res) => {
-                setUserData(res.data)
-                navigate('/hoje')
-            })
-            promise.catch((res) => {
-                alert('ERRO!')
-            })
-        }
-        else if (e.nativeEvent.submitter.id === 'register') {
-            const promise = postRegisterUser(registerData)
-            promise.then(() => {
-                alert('Usuário registrado!')
-                navigate('/')
-            })
-            promise.catch((res) => {
-                alert('ERRO!')
-            })
-        }
+        setDisabled(true)
+
+        setTimeout(() => {
+            if (e.nativeEvent.submitter.id === 'login') {
+                const promise = postLoginUser(loginData)
+                promise.then((res) => {
+                    setUserData(res.data)
+                    navigate('/hoje')
+                })
+                promise.catch((res) => {
+                    alert('Dados inválidos!')
+                    setDisabled(false)
+                })
+            }
+            else if (e.nativeEvent.submitter.id === 'register') {
+                const promise = postRegisterUser(registerData)
+                promise.then(() => {
+                    alert('Usuário registrado!')
+                    navigate('/')
+                })
+                promise.catch((res) => {
+                    alert('ERRO!')
+                    setDisabled(false)
+                })
+            }
+        }, 4000);
+
     }
 
     const [registerData, setRegisterData] = useState({
@@ -58,21 +68,39 @@ export default function Home({ isLogin }) {
             <FormWrapper action="" onSubmit={handleSubmit}>
                 {isLogin ?
                     <>
-                        <LoginInputs loginData={loginData} setLoginData={setLoginData} />
-                        <Button id='login' color='blue' type="submit">
-                            Entrar
+                        <LoginInputs loginData={loginData} setLoginData={setLoginData} disabled={disabled} />
+                        <Button id='login' color='blue' type="submit" disabled={disabled}>
+                            {disabled ?
+                                <ThreeDots
+                                    height="13"
+                                    width="51"
+                                    color="#FFFFFF"
+                                    ariaLabel="three-dots-loading"
+                                />
+                                :
+                                'Entrar'
+                            }
                         </Button>
                     </>
                     :
                     <>
-                        <RegisterInputs registerData={registerData} setRegisterData={setRegisterData} />
-                        <Button id='register' color='blue' type="submit">
-                            Cadastrar
+                        <RegisterInputs registerData={registerData} setRegisterData={setRegisterData} disabled={disabled} />
+                        <Button id='register' color='blue' type="submit" disabled={disabled}>
+                            {disabled ?
+                                <ThreeDots
+                                    height="13"
+                                    width="51"
+                                    color="#FFFFFF"
+                                    ariaLabel="three-dots-loading"
+                                />
+                                :
+                                'Cadastrar'
+                            }
                         </Button>
                     </>
                 }
             </FormWrapper>
-            <SwitchLoginRegister>
+            <SwitchLoginRegister disabled={disabled}>
                 <Link to={isLogin ? '/cadastro' : '/'}>Não tem uma conta? Cadastre-se!</Link>
             </SwitchLoginRegister>
         </Wrapper>
