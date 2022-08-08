@@ -2,12 +2,11 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import UserContext from '../../../Context/UserContext'
 import { postCheckHabitAsDone, postUncheckHabitAsDone } from '../../../services/trackitAPI'
+import checkmark from '../../../assets/img/Checkmark.svg'
 
 export default function TodayTask({ todayHabitData }) {
 
     const { userData, refresh, setRefresh } = useContext(UserContext)
-
-    console.log('TodayTask:', todayHabitData)
 
     function toggleCheck() {
         if (todayHabitData.done) {
@@ -33,7 +32,7 @@ export default function TodayTask({ todayHabitData }) {
                     toggleCheck()
                 }}
             >
-
+                <img src={checkmark} alt="" />
             </Button>
 
         </Wrapper>
@@ -77,5 +76,10 @@ const Button = styled.div`
         max-width: 70px;
         background: ${({ isDone }) => isDone ? '#8FC549' : '#EBEBEB'};
         border-radius: 5px;
+    }
+
+    img {
+        width: 35px;
+        height: 35px;
     }
 `

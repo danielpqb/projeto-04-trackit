@@ -21,11 +21,10 @@ export default function Home({ isLogin }) {
             const promise = postLoginUser(loginData)
             promise.then((res) => {
                 setUserData(res.data)
-                navigate('/habitos')
+                navigate('/hoje')
             })
             promise.catch((res) => {
                 alert('ERRO!')
-                console.log(res)
             })
         }
         else if (e.nativeEvent.submitter.id === 'register') {
@@ -36,7 +35,6 @@ export default function Home({ isLogin }) {
             })
             promise.catch((res) => {
                 alert('ERRO!')
-                console.log(res)
             })
         }
     }

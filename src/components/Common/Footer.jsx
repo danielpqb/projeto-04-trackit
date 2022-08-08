@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import UserContext from '../../Context/UserContext'
+import { buildStyles, CircularProgressbar } from 'react-circular-progressbar'
+import "react-circular-progressbar/dist/styles.css"
+
 
 export default function Footer() {
+
+    const { progress } = useContext(UserContext)
+
     return (
         <Wrapper>
             <div>
@@ -11,9 +18,21 @@ export default function Footer() {
                 </Link>
             </div>
             <Today>
-                <Link to={`/hoje`}>
-                    Hoje
-                </Link>
+                <MiddleButton>
+                    <CircularProgressbar
+                        value={progress}
+                        text={'Hoje'}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                            backgroundColor: "#52B6FF",
+                            textColor: "#fff",
+                            pathColor: "#fff",
+                            trailColor: "transparent",
+                        })}
+                    />
+                </MiddleButton>
+                <Link to={`/hoje`} />
             </Today>
             <div>
                 <Link to={`/historico`}>
@@ -35,9 +54,17 @@ const Wrapper = styled.div`
         background: #FFFFFF;
 
         z-index: 1;
+
+        justify-content: space-between;
+
+        padding: 0px 30px;
+    }
+
+    div {
+        width: fit-content;
     }
     
-    & a {
+    a {
         font-size: 18px;
 
         color: #52B6FF;
@@ -45,20 +72,31 @@ const Wrapper = styled.div`
 `
 
 const Today = styled.div`
-    a {
-        background: #52B6FF;
-        color: #FFFFFF;
+    & {
+        position: relative;
+
+        bottom: 20px;
+        left: 0;
+        right: 0;
 
         border-radius: 50%;
         min-width: 90px;
         max-width: 90px;
         height: 90px;
+    }
 
-        position: fixed;
-        bottom: 12px;
+    a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+`
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+const MiddleButton = styled.div`
+    & * {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
     }
 `

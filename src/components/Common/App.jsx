@@ -10,15 +10,14 @@ import History from '../Screens/History/History'
 
 export default function App() {
     const [userData, setUserData] = useState({})
+    const [progress, setProgress] = useState(0)
 
     const [refresh, setRefresh] = useState(false)
-
-    console.log('userData: ', userData)
 
     return (
         <>
             <BrowserRouter>
-                <UserContext.Provider value={{ userData, setUserData, refresh, setRefresh }}>
+                <UserContext.Provider value={{ userData, setUserData, refresh, setRefresh, progress, setProgress }}>
                     <GlobalStyle />
                     <Routes>
                         <Route path="/" element={<Home isLogin={true} />}></Route>

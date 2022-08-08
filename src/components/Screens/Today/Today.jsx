@@ -10,20 +10,21 @@ import TodayTask from './TodayTask'
 
 export default function Today() {
 
-    const { userData, refresh } = useContext(UserContext)
+    const { userData, refresh, setProgress } = useContext(UserContext)
 
     const [userTodayHabits, setUserTodayHabits] = useState([])
-
-    console.log('Today:', userTodayHabits)
 
     useEffect(() => {
         const promise = getTodayHabits(userData.token)
         promise.then((res) => {
             setUserTodayHabits(res.data)
+            setProgress(
+                Math.round(
+                    (res.data.filter((value) => value.done).length / res.data.length) * 100
+                ))
         })
         promise.catch((res) => {
             alert('ERRO!')
-            console.log(res)
         })
     }, [refresh])
 

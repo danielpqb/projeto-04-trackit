@@ -23,12 +23,10 @@ export default function NewHabit({ setUserHabits, setShowNewHabit }) {
             })
             promise.catch((res) => {
                 alert('ERRO!')
-                console.log(res)
             })
         })
         promise.catch((res) => {
             alert('ERRO!')
-            console.log(res)
         })
 
     }

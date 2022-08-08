@@ -15,11 +15,9 @@ export default function Habits() {
 
     const { userData, refresh } = useContext(UserContext)
 
-    const [showNewHabit, setShowNewHabit] = useState(false)
-
     const [userHabits, setUserHabits] = useState([])
 
-    console.log('Habits: ', userHabits)
+    const [showNewHabit, setShowNewHabit] = useState(false)
 
     useEffect(() => {
         refreshUserHabits()
@@ -32,7 +30,6 @@ export default function Habits() {
         })
         promise.catch((res) => {
             alert('ERRO!')
-            console.log(res)
         })
     }
 

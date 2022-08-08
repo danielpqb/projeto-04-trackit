@@ -1,13 +1,39 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from "styled-components"
 
+import dayjs from "dayjs"
+import "dayjs/locale/pt-br"
+import updateLocale from "dayjs/plugin/updateLocale"
+import UserContext from '../../Context/UserContext'
+dayjs.extend(updateLocale)
+dayjs.updateLocale("pt-br", {
+    weekdays: [
+        "Domingo",
+        "Segunda",
+        "Terça",
+        "Quarta",
+        "Quinta",
+        "Sexta",
+        "Sábado",
+    ],
+})
+const today = dayjs().locale("pt-br").format("dddd, DD/MM")
+
 export default function Title({ screenId, showNewHabit, setShowNewHabit }) {
+
+    const { progress } = useContext(UserContext)
+
     return (
         <Wrapper screenId={screenId}>
             {screenId === 'today' ?
                 <>
-                    <Name>Date, time</Name>
-                    <Description screenId={screenId}>Vem no test</Description>
+                    <Name>{today}</Name>
+                    <Description progress={progress}>{
+                        !progress ?
+                            'Nenhum hábito concluído ainda'
+                            :
+                            `${progress}% dos hábitos concluídos `
+                    }</Description>
                 </>
                 :
                 screenId === 'historico' ?
@@ -44,7 +70,7 @@ const Description = styled.div`
     & {
         justify-content: flex-start;
         font-size: 18px;
-        color: ${({ screenId }) => screenId === 'today' ? '#BABABA' : '#8FC549'};
+        color: ${({ progress }) => (!progress ? '#BABABA' : '#8FC549')};
         height: fit-content;
     }
 `
