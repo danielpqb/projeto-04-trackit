@@ -43,5 +43,6 @@ const Message = styled.div`
     & {
         height: 75px;
         margin-bottom: 25px;
+        justify-content: flex-start;
     }
 `
