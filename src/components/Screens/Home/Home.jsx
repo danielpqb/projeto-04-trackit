@@ -18,13 +18,13 @@ export default function Home({ isLogin }) {
     const [disabled, setDisabled] = useState(false)
 
     useEffect(() => {
+
         const localUser = JSON.parse(localStorage.getItem('user'))
         if (localUser) {
             setUserData(localUser)
             navigate('/hoje')
         }
     }, [])
-
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -46,6 +46,7 @@ export default function Home({ isLogin }) {
         else if (e.nativeEvent.submitter.id === 'register') {
             const promise = postRegisterUser(registerData)
             promise.then(() => {
+                setDisabled(false)
                 alert('Usuário registrado!')
                 navigate('/')
             })
