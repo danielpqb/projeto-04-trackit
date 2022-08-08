@@ -28,12 +28,10 @@ export default function NewHabit({ setUserHabits, setShowNewHabit }) {
                 setShowNewHabit(false)
             })
             promise.catch(() => {
-                alert('ERRO!')
                 setDisabled(false)
             })
         })
         promise.catch(() => {
-            alert('ERRO!')
             setDisabled(false)
         })
 

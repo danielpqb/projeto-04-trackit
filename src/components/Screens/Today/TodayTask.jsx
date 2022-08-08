@@ -20,10 +20,20 @@ export default function TodayTask({ todayHabitData }) {
     return (
         <Wrapper id={todayHabitData.id}>
 
-            <Text>
+            <Text todayHabitData={todayHabitData}>
                 <h1>{todayHabitData.name}</h1>
-                <h2>{`Sequência atual: ${todayHabitData.currentSequence}`}</h2>
-                <h2>{`Seu recorde: ${todayHabitData.highestSequence}`}</h2>
+                <div>
+                    Sequência atual:
+                    <span>
+                        &nbsp;{todayHabitData.currentSequence}{todayHabitData.currentSequence <= 0 ? '' : todayHabitData.currentSequence > 1 ? ' dias' : ' dia'}
+                    </span>
+                </div>
+                <div>
+                    Seu recorde:
+                    <span>
+                        &nbsp;{todayHabitData.highestSequence}{todayHabitData.currentSequence <= 0 ? '' : todayHabitData.currentSequence > 1 ? ' dias' : ' dia'}
+                    </span>
+                </div>
             </Text>
 
             <Button
@@ -59,14 +69,20 @@ const Text = styled.div`
     }
 
     h1 {
-        font-size: 19.976px;
-        line-height: 25px;
+        font-size: 20px;
         margin-bottom: 10px;
     }
 
-    h2 {
-        font-size: 12.976px;
-        line-height: 16px;
+    div {
+        justify-content: flex-start;
+        font-size: 13px;
+    }
+
+    span {
+        display: inline-block;
+        font-size: 13px;
+        vertical-align: middle;
+        color: ${({ todayHabitData }) => ((todayHabitData.currentSequence === todayHabitData.highestSequence) && (todayHabitData.done)) ? '#8FC549' : '#666666'};
     }
 `
 const Button = styled.div`

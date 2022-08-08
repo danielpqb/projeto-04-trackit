@@ -23,8 +23,7 @@ export default function Today() {
                     (res.data.filter((value) => value.done).length / res.data.length) * 100
                 ))
         })
-        promise.catch((res) => {
-            alert('ERRO!')
+        promise.catch(() => {
         })
     }, [refresh])
 

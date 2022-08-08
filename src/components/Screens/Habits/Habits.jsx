@@ -29,7 +29,6 @@ export default function Habits() {
             setUserHabits(res.data)
         })
         promise.catch((res) => {
-            alert('ERRO!')
         })
     }
 
