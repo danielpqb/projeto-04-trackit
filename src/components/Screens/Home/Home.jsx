@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -17,35 +17,43 @@ export default function Home({ isLogin }) {
 
     const [disabled, setDisabled] = useState(false)
 
+    useEffect(() => {
+        const localUser = JSON.parse(localStorage.getItem('user'))
+        if (localUser) {
+            setUserData(localUser)
+            navigate('/hoje')
+        }
+    }, [])
+
+
     function handleSubmit(e) {
         e.preventDefault()
 
         setDisabled(true)
 
-        setTimeout(() => {
-            if (e.nativeEvent.submitter.id === 'login') {
-                const promise = postLoginUser(loginData)
-                promise.then((res) => {
-                    setUserData(res.data)
-                    navigate('/hoje')
-                })
-                promise.catch((res) => {
-                    alert('Dados inválidos!')
-                    setDisabled(false)
-                })
-            }
-            else if (e.nativeEvent.submitter.id === 'register') {
-                const promise = postRegisterUser(registerData)
-                promise.then(() => {
-                    alert('Usuário registrado!')
-                    navigate('/')
-                })
-                promise.catch((res) => {
-                    alert('ERRO!')
-                    setDisabled(false)
-                })
-            }
-        }, 4000);
+        if (e.nativeEvent.submitter.id === 'login') {
+            const promise = postLoginUser(loginData)
+            promise.then((res) => {
+                setUserData(res.data)
+                localStorage.setItem("user", JSON.stringify(res.data));
+                navigate('/hoje')
+            })
+            promise.catch(() => {
+                alert('Dados inválidos!')
+                setDisabled(false)
+            })
+        }
+        else if (e.nativeEvent.submitter.id === 'register') {
+            const promise = postRegisterUser(registerData)
+            promise.then(() => {
+                alert('Usuário registrado!')
+                navigate('/')
+            })
+            promise.catch(() => {
+                alert('ERRO!')
+                setDisabled(false)
+            })
+        }
 
     }
 
@@ -65,7 +73,7 @@ export default function Home({ isLogin }) {
             <div>
                 <img src={image} alt="" />
             </div>
-            <FormWrapper action="" onSubmit={handleSubmit}>
+            <FormWrapper action="" onSubmit={handleSubmit} disabled={disabled}>
                 {isLogin ?
                     <>
                         <LoginInputs loginData={loginData} setLoginData={setLoginData} disabled={disabled} />
@@ -149,7 +157,7 @@ const FormWrapper = styled.form`
         box-sizing: border-box;
         width: 100%;
         height: 50px;
-        background: #FFFFFF;
+        background: ${({ disabled }) => (disabled ? '#F2F2F2' : '#FFFFFF')};
         border: 1px solid #D5D5D5;
         border-radius: 3px;
         padding: 15px;
@@ -168,5 +176,9 @@ const SwitchLoginRegister = styled.div`
 
         font-size: 17px;
         text-decoration-line: underline;
+    }
+
+    a {
+        ${({ disabled }) => (disabled ? 'pointer-events: none;' : '')};
     }
  `

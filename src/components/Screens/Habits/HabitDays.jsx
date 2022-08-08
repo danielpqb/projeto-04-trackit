@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-export default function HabitDays({ selectedDays = [], newHabitData, setNewHabitData }) {
+export default function HabitDays({ selectedDays = [], newHabitData, setNewHabitData, disabled }) {
 
     function toggleHabitDay(id) {
         for (const day of habitDays) {
@@ -31,7 +31,8 @@ export default function HabitDays({ selectedDays = [], newHabitData, setNewHabit
         <Wrapper>
             {habitDays.map((day, index) => {
                 return (
-                    <Weekday
+                    <Weekday disabled={disabled}
+                        type='button'
                         key={index}
                         onClick={() => {
                             if (newHabitData !== undefined) {
@@ -55,7 +56,7 @@ const Wrapper = styled.div`
     }
 `
 
-const Weekday = styled.div`
+const Weekday = styled.button`
     & {
         width: 30px;
         height: 30px;
